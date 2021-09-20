@@ -23,11 +23,12 @@ func main() {
 		os.Exit(0)
 	}()
 
-	PORT := ":" + port
-	l, err := net.Listen("tcp4", PORT)
+	l, err := net.Listen("tcp4", fmt.Sprintf(":%s", port))
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	fmt.Printf("waiting for a client on port %s...\n", port)
 
 	c, err := l.Accept()
 	if err != nil {
@@ -35,7 +36,7 @@ func main() {
 		return
 	}
 
-	fmt.Printf("Client connected: %s\n", c.RemoteAddr().String())
+	fmt.Printf("client connected: %s\n", c.RemoteAddr().String())
 
 	portaudio.Initialize()
 	defer portaudio.Terminate()
