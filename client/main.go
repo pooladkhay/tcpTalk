@@ -13,13 +13,13 @@ import (
 	"github.com/gordonklaus/portaudio"
 )
 
+const serverAddr = "mamad.local:4004"
+
 func main() {
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
 
-	addr := "mamad.local:4004"
-
-	c, err := net.Dial("tcp", addr)
+	c, err := net.Dial("tcp", serverAddr)
 	if err != nil {
 		log.Fatalln(err)
 	}
